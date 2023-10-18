@@ -3,6 +3,7 @@ include /usr/share/dpkg/default.mk
 
 PACKAGE = zfs-linux
 
+SHA1 ?= zfs-2.2.0
 SRCDIR = upstream
 BUILDDIR ?= $(PACKAGE)-$(DEB_VERSION_UPSTREAM)
 ORIG_SRC_TAR = $(PACKAGE)_$(DEB_VERSION_UPSTREAM).orig.tar.gz
@@ -55,7 +56,10 @@ dinstall: $(DEBS)
 submodule:
 	test -f "$(SRCDIR)/README.md" || git submodule update --init
 
-$(SRCDIR)/README.md: submodule
+$(SRCDIR)/README.md: clone-upstream
+
+clone-upstream: submodule
+	cd $(SRCDIR); git fetch --depth 1 origin +refs/tags/$(SHA1):refs/tags/$(SHA1); git reset --hard $(SHA1)
 
 .PHONY: zfs
 zfs: $(DEBS)
