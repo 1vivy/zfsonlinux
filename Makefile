@@ -81,6 +81,7 @@ $(BUILDDIR): $(SRCDIR)/README.md $(SRCDIR) debian
 	rm -rf $@ $@.tmp
 	cp -a $(SRCDIR) $@.tmp
 	cp -a debian $@.tmp/debian
+	echo "SHA1=$(SHA1)" >> $@/debian/env.mk
 	mv $@.tmp $@
 
 .PHONY: clean
