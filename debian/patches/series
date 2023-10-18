@@ -8,4 +8,3 @@
 0008-Patch-move-manpage-arcstat-1-to-arcstat-8.patch
 0009-arcstat-Fix-integer-division-with-python3.patch
 0010-arc-stat-summary-guard-access-to-l2arc-MFU-MRU-stats.patch
-0011-Avoid-save-restoring-AMX-registers-to-avoid-a-SPR-er.patch
