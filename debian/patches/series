@@ -6,5 +6,4 @@
 0006-dont-symlink-zed-scripts.patch
 0007-Add-systemd-unit-for-importing-specific-pools.patch
 0008-Patch-move-manpage-arcstat-1-to-arcstat-8.patch
-0009-arcstat-Fix-integer-division-with-python3.patch
 0010-arc-stat-summary-guard-access-to-l2arc-MFU-MRU-stats.patch

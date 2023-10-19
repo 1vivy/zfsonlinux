@@ -12,15 +12,17 @@ Signed-off-by: Thomas Lamprecht <t.lamprecht@proxmox.com>
  etc/systemd/system/zfs-zed.service.in | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/etc/systemd/system/zfs-zed.service.in b/etc/systemd/system/zfs-zed.service.in
-index be80025a4..20ce8e632 100644
---- a/etc/systemd/system/zfs-zed.service.in
-+++ b/etc/systemd/system/zfs-zed.service.in
-@@ -4,7 +4,7 @@ Documentation=man:zed(8)
+Index: zfs-linux-2.2.0/etc/systemd/system/zfs-zed.service.in
+===================================================================
+--- zfs-linux-2.2.0.orig/etc/systemd/system/zfs-zed.service.in
++++ zfs-linux-2.2.0/etc/systemd/system/zfs-zed.service.in
+@@ -4,8 +4,8 @@ Documentation=man:zed(8)
  ConditionPathIsDirectory=/sys/module/zfs
  
  [Service]
+-EnvironmentFile=-@initconfdir@/zfs
 -ExecStart=@sbindir@/zed -F
++EnvironmentFile=-/etc/default/zfs
 +ExecStart=/usr/sbin/zed -F
  Restart=always
  
