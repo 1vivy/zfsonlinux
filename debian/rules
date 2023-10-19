@@ -46,10 +46,6 @@ override_dh_auto_configure:
 		sed 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' "$$i" > "$${i%%.in}" ; \
 	done
 
-	sed -e 's/@VER@/$(VERSION)/g' -e 's|@SHA1@|$(SHA1)|g' \
-		-e 's/@BUILDTIME@/$(shell date +"%a, %d %b %Y %T %z")/g' < $(CURDIR)/debian/changelog.in > $(CURDIR)/debian/changelog
-
-
 override_dh_auto_test:
 override_dh_auto_test:
 ifeq (amd64,$(DEB_HOST_ARCH))

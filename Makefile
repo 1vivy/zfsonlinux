@@ -59,7 +59,13 @@ submodule:
 $(SRCDIR)/README.md: clone-upstream
 
 clone-upstream: submodule
-	cd $(SRCDIR); git fetch --depth 1 origin +refs/tags/$(SHA1):refs/tags/$(SHA1); git reset --hard $(SHA1)
+	cd $(SRCDIR); git fetch; git reset --hard $(SHA1)
+
+debian-changelog:
+	rm -f debian/changelog
+	VERSION=$$(awk -F': *' '/^Version:/ {print $$2}' $(SRCDIR)/META | tr -d ' '); \
+	sed -e "s/@VER@/$$VERSION/g" -e "s|@SHA1@|$(SHA1)|g" \
+		-e "s/@BUILDTIME@/$(shell date +"%a, %d %b %Y %T %z")/g" < debian/changelog.in > debian/changelog
 
 .PHONY: zfs
 zfs: $(DEBS)
@@ -81,7 +87,6 @@ $(BUILDDIR): $(SRCDIR)/README.md $(SRCDIR) debian
 	rm -rf $@ $@.tmp
 	cp -a $(SRCDIR) $@.tmp
 	cp -a debian $@.tmp/debian
-	echo "SHA1=$(SHA1)" >> $@/debian/env.mk
 	mv $@.tmp $@
 
 .PHONY: clean
