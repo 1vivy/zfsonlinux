@@ -83,7 +83,7 @@ $(ZFS_DSC): $(BUILDDIR) $(ORIG_SRC_TAR)
 sbuild: $(ZFS_DSC)
 	sbuild $(ZFS_DSC)
 
-$(BUILDDIR): $(SRCDIR)/README.md $(SRCDIR) debian
+$(BUILDDIR): $(SRCDIR) debian
 	rm -rf $@ $@.tmp
 	cp -a $(SRCDIR) $@.tmp
 	cp -a debian $@.tmp/debian
