@@ -5,3 +5,4 @@
 /*.dsc
 /*.tar*
 /zfs-utils-*.*/
+/zfs-linux-*/
