@@ -1,5 +1,5 @@
-zfs-linux (@VER@-pve1) bookworm; urgency=low
+zfs-linux (@ZVER@-@ZREL@) bookworm; urgency=low
 
-  Mainline build at commit: @SHA1@
+  Mainline build at commit: @ZSHA1@
 
- -- 1vivy <1vivy@tutanota.com>  @BUILDTIME@
+ -- 1vivy <1vivy@tutanota.com> @BUILDTIME@

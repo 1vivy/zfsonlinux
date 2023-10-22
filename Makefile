@@ -58,14 +58,27 @@ submodule:
 
 $(SRCDIR)/README.md: clone-upstream
 
-clone-upstream: submodule
+extract-zfs-version:
+	rm -f zfsonlinux-upstream_env.mk
+	$(eval VERSION := $(shell awk -F': *' '/^Version:/ {print $$2}' $(SRCDIR)/META | tr -d ' '))
+	$(eval ZFS_VER := $(VERSION))
+	$(eval ABINUM := $(shell echo $(ZFS_VER) | awk -F'[.-]' '{ for (i = 1; i <= NF; i++) { if ($$i ~ /^[0-9][0-9]*$$/) { printf("%02d", $$i); } else { printf("%s", $$i); } } }'))
+	$(eval ZREL := $(ABINUM)$(shell date +%Y%m%d%H%M))
+
+	echo "ZFS_VER=$(ZFS_VER)" >> zfsonlinux-upstream_env.mk
+	echo "ZREL=$(ZREL)" >> zfsonlinux-upstream_env.mk
+
+clone-upstream:
 	cd $(SRCDIR); git fetch; git reset --hard $(SHA1)
 
 debian-changelog:
 	rm -f debian/changelog
 	VERSION=$$(awk -F': *' '/^Version:/ {print $$2}' $(SRCDIR)/META | tr -d ' '); \
-	sed -e "s/@VER@/$$VERSION/g" -e "s|@SHA1@|$(SHA1)|g" \
+	sed -e "s/@ZVER@/$(ZFS_VER)/g" -e "s/@ZREL@/$(ZREL)/g" -e "s|@ZSHA1@|$(SHA1)|g" \
 		-e "s/@BUILDTIME@/$(shell date +"%a, %d %b %Y %T %z")/g" < debian/changelog.in > debian/changelog
+
+.PHONY: prep
+prep: submodule clone-upstream extract-zfs-version debian-changelog
 
 .PHONY: zfs
 zfs: $(DEBS)
