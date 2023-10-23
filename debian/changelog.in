@@ -2,4 +2,4 @@ zfs-linux (@ZVER@-@ZREL@) bookworm; urgency=low
 
   Mainline build at commit: @ZSHA1@
 
- -- 1vivy <1vivy@tutanota.com> @BUILDTIME@
+ -- 1vivy <1vivy@tutanota.com>  @BUILDTIME@
